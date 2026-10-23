@@ -57,7 +57,7 @@ public class PersonalInfoSM : PersonalInfoXY
             Data[0x18] | ((Data[0x52] >> 1 & 1) << 8),
             Data[0x19] | ((Data[0x52] >> 2 & 1) << 8),
             Data[0x1A] | ((Data[0x52] >> 3 & 1) << 8),
-        ]
+        ];
     }
 }
 
