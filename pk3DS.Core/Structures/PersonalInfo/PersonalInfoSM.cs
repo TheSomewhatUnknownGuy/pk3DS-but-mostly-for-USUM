@@ -65,12 +65,12 @@ set
     Data[0x1A] = (byte)(value[2] & 0xFF);
     
     //Set high bytes
-    Data[0x53] = (byte)(value[0] >> 8)
-    Data[0x1E] = (byte)(value[1] >> 8)
-    Data[0x1F] = (byte)(value[2] >> 8)
+    Data[0x53] = (byte)(value[0] >> 8);
+    Data[0x1E] = (byte)(value[1] >> 8);
+    Data[0x1F] = (byte)(value[2] >> 8);
     
     //clear the 3 bits from old version
-    Data[0x52] = Data[0x52] & 0x1 
+    Data[0x52] = Data[0x52] & 0x1 ;
 }
     }
 
