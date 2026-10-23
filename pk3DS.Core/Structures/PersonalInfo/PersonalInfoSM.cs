@@ -40,7 +40,7 @@ public class PersonalInfoSM : PersonalInfoXY
     {
         get
         {
-            if (GameConfig.ExpandedAbilities)
+            if (GameConfig.Enable16BitAbilities)
             {
                 return [
                     Data[0x18] | (Data[0x53] << 8),
