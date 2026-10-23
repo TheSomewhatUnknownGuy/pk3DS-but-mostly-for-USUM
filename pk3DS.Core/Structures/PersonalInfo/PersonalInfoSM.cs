@@ -39,39 +39,39 @@ public class PersonalInfoSM : PersonalInfoXY
     public override int[] Abilities
     {
         get
-        {
-            if (GameConfig.Enable16BitAbilities)
-            {
-                return [
-                    Data[0x18] | (Data[0x53] << 8),
-                    Data[0x19] | (Data[0x1E] << 8),
-                    Data[0x1A] | (Data[0x1F] << 8)
-                ];
-            }
-            return [
-                Data[0x18] | ((Data[0x52] >> 1 & 1) << 8),
-                Data[0x19] | ((Data[0x52] >> 2 & 1) << 8),
-                Data[0x1A] | ((Data[0x52] >> 3 & 1) << 8)
-            ];
-        }
-        set
-        {
-            if (value?.Length != 3) return;
-            Data[0x18] = (byte)(value[0] & 0xFF);
-            Data[0x19] = (byte)(value[1] & 0xFF);
-            Data[0x1A] = (byte)(value[2] & 0xFF);
-            
-            if (GameConfig.ExpandedAbilities)
-            {
-                Data[0x53] = (byte)((value[0] >> 8) & 0xFF);
-                Data[0x1E] = (byte)((value[1] >> 8) & 0xFF);
-                Data[0x1F] = (byte)((value[2] >> 8) & 0xFF);
-            }
-            else
-            {
-                Data[0x52] = (byte)((Data[0x52] & ~0x0E) | (((value[0] >> 8) & 1) << 1) | (((value[1] >> 8) & 1) << 2) | (((value[2] >> 8) & 1) << 3));
-            }
-        }
+{
+    //3 bits from old version are 0, use new version (old version bits cleared on set)
+    if(Data[0x52] & 0xE == 0)
+    {
+        Data[0x18] | (Data[0x53] << 8);
+        Data[0x19] | (Data[0x1E] << 8);
+        Data[0x1A] | (Data[0x1F] << 8);
+    }
+    
+    //use new version
+    else
+    {
+        Data[0x18] | ((Data[0x52] >> 1 & 1) << 8);
+        Data[0x19] | ((Data[0x52] >> 2 & 1) << 8);
+        Data[0x1A] | ((Data[0x52] >> 3 & 1) << 8);
+    }
+}
+
+set
+{
+    //set low bytes
+    Data[0x18] = (byte)(value[0] & 0xFF);
+    Data[0x19] = (byte)(value[1] & 0xFF);
+    Data[0x1A] = (byte)(value[2] & 0xFF);
+    
+    //Set high bytes
+    Data[0x53] = (byte)(value[0] >> 8)
+    Data[0x1E] = (byte)(value[1] >> 8)
+    Data[0x1F] = (byte)(value[2] >> 8)
+    
+    //clear the 3 bits from old version
+    Data[0x52] = Data[0x52] & 0x1 
+}
     }
 
     public override byte[] Write()
