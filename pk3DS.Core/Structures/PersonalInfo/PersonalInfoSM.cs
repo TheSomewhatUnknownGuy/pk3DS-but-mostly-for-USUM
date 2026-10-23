@@ -74,7 +74,7 @@ set
     Data[0x1F] = (byte)(value[2] >> 8);
     
     //clear the 3 bits from old version
-    Data[0x52] = Data[0x52] && Data[0x1] ;
+    Data[0x52] = (byte)(Data[0x52] & 0x1) ;
 }
 }
 
