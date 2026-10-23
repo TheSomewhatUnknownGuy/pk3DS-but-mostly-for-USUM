@@ -41,7 +41,7 @@ public class PersonalInfoSM : PersonalInfoXY
            get
 {
     //3 bits from old version are 0, use new version (old version bits cleared on set)
-    if((byte)(Data[0x52] == 0 &0xE) == 0)
+    if((byte)(Data[0x52] &0xE) == 0)
     {
         return [
             Data[0x18] | (Data[0x53] << 8),
