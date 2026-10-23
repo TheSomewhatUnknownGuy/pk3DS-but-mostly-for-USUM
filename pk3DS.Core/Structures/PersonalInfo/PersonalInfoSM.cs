@@ -38,23 +38,22 @@ public class PersonalInfoSM : PersonalInfoXY
 
     public override int[] Abilities
     {
-        get
-{
+        get {
     //3 bits from old version are 0, use new version (old version bits cleared on set)
-    if(Data[0x52] & Data[0xE] == 0)
-    {
-        Data[0x18] | (Data[0x53] << 8);
-        Data[0x19] | (Data[0x1E] << 8);
-        Data[0x1A] | (Data[0x1F] << 8);
-    }
+        if(Data[0x52] & Data[0xE] == 0)
+        {
+            Data[0x18] | (Data[0x53] << 8);
+            Data[0x19] | (Data[0x1E] << 8);
+            Data[0x1A] | (Data[0x1F] << 8);
+        }
     
-    //use new version
-    else
-    {
-        Data[0x18] | ((Data[0x52] >> 1 & 1) << 8);
-        Data[0x19] | ((Data[0x52] >> 2 & 1) << 8);
-        Data[0x1A] | ((Data[0x52] >> 3 & 1) << 8);
-    }
+        //use new version
+        else
+        {
+            Data[0x18] | ((Data[0x52] >> 1 & 1) << 8);
+            Data[0x19] | ((Data[0x52] >> 2 & 1) << 8);
+            Data[0x1A] | ((Data[0x52] >> 3 & 1) << 8);
+        }
 }
 
 set
@@ -72,7 +71,7 @@ set
     //clear the 3 bits from old version
     Data[0x52] = Data[0x52] & 0x1 ;
 }
-    }
+}
 
     public override byte[] Write()
     {
